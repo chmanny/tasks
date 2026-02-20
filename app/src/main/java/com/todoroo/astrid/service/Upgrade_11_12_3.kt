@@ -2,9 +2,9 @@
 
 package com.todoroo.astrid.service
 
+import org.tasks.R
 import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
 import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
-import org.tasks.R
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 

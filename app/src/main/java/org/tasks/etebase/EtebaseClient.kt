@@ -15,10 +15,10 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
 class EtebaseClient(
-        private val context: Context,
-        private val username: String,
-        private val etebase: Account,
-        private val caldavDao: CaldavDao
+    private val context: Context,
+    private val username: String,
+    private val etebase: Account,
+    private val caldavDao: CaldavDao
 ) {
     private val cache = EtebaseLocalCache.getInstance(context, username)
 
@@ -30,14 +30,14 @@ class EtebaseClient(
         do {
             val response = withContext(Dispatchers.IO) {
                 collectionManager.list(
-                        TYPE_TASKS,
-                        FetchOptions().stoken(stoken).limit(MAX_FETCH)
+                    TYPE_TASKS,
+                    FetchOptions().stoken(stoken).limit(MAX_FETCH)
                 )
             }
             stoken = response.stoken
             response.data
-                    .filter { it.collectionType == TYPE_TASKS }
-                    .forEach { cache.collectionSet(collectionManager, it) }
+                .filter { it.collectionType == TYPE_TASKS }
+                .forEach { cache.collectionSet(collectionManager, it) }
             response.removedMemberships.forEach {
                 cache.collectionUnset(collectionManager, it)
             }
@@ -72,12 +72,12 @@ class EtebaseClient(
             }
             ?: throw IllegalStateException("Update failed - missing UUID")
         val item = cache.itemGet(itemManager, collection.uid, obj)
-                ?: itemManager
-                        .create(ItemMetadata().apply { name = task.remoteId!! }, "")
-                        .apply {
-                            task.obj = uid
-                            caldavDao.update(task)
-                        }
+            ?: itemManager
+                .create(ItemMetadata().apply { name = task.remoteId!! }, "")
+                .apply {
+                    task.obj = uid
+                    caldavDao.update(task)
+                }
         item.meta = updateMtime(item.meta, task.lastSync)
         item.content = content
         return item
@@ -93,17 +93,17 @@ class EtebaseClient(
             }
             ?: return null
         return cache.itemGet(itemManager, collection.uid, objId)
-                ?.takeIf { !it.isDeleted }
-                ?.apply {
-                    meta = updateMtime(meta)
-                    delete()
-                }
+            ?.takeIf { !it.isDeleted }
+            ?.apply {
+                meta = updateMtime(meta)
+                delete()
+            }
     }
 
     private fun updateMtime(meta: ItemMetadata, mtime: Long = currentTimeMillis()): ItemMetadata =
-            meta.also {
-                it.mtime = mtime
-            }
+        meta.also {
+            it.mtime = mtime
+        }
 
     suspend fun updateCache(collection: Collection, items: List<Item>) {
         val itemManager = etebase.collectionManager.getItemManager(collection)
@@ -129,26 +129,26 @@ class EtebaseClient(
     }
 
     suspend fun makeCollection(name: String, color: Int) =
-            etebase
-                    .collectionManager
-                    .create(TYPE_TASKS, ItemMetadata(), "")
-                    .let { setAndUpload(it, name, color) }
+        etebase
+            .collectionManager
+            .create(TYPE_TASKS, ItemMetadata(), "")
+            .let { setAndUpload(it, name, color) }
 
     suspend fun updateCollection(calendar: CaldavCalendar, name: String, color: Int) =
-            cache
-                    .collectionGet(etebase.collectionManager, calendar.url!!)
-                    .let { setAndUpload(it, name, color) }
+        cache
+            .collectionGet(etebase.collectionManager, calendar.url!!)
+            .let { setAndUpload(it, name, color) }
 
     suspend fun deleteCollection(calendar: CaldavCalendar) =
-            cache
-                    .collectionGet(etebase.collectionManager, calendar.url!!)
-                    .apply { delete() }
-                    .let { setAndUpload(it) }
+        cache
+            .collectionGet(etebase.collectionManager, calendar.url!!)
+            .apply { delete() }
+            .let { setAndUpload(it) }
 
     private suspend fun setAndUpload(
-            collection: Collection,
-            name: String? = null,
-            color: Int? = null
+        collection: Collection,
+        name: String? = null,
+        color: Int? = null
     ): String {
         collection.meta = collection.meta.let { meta ->
             name?.let { meta.name = it }

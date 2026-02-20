@@ -1,3 +1,11 @@
+/**
+ * Theme.kt — Wear Compose Material theme wrapper.
+ *
+ * Applies the Tasks colour scheme (primary = Blue 500) on top of the
+ * default Wear Material theme. Used by [MainActivity] as the outermost
+ * theme in the Compose tree.
+ */
+
 package org.tasks.presentation.theme
 
 import androidx.compose.runtime.Composable

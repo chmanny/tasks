@@ -8,6 +8,7 @@ package com.todoroo.andlib.utility;
 
 import android.app.Activity;
 import android.app.Dialog;
+
 import timber.log.Timber;
 
 public class DialogUtilities {

@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -19,7 +24,7 @@
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
-            android:value="false" />
+            android:value="true" />
 
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
@@ -44,6 +49,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Reminder notification receiver -->
+        <receiver
+            android:name=".notifications.WearNotificationManager$ReminderReceiver"
+            android:exported="false" />
+
+        <!-- Reschedule reminders after boot -->
+        <receiver
+            android:name=".notifications.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Service to receive data changes from phone even when app is not running -->
+        <service
+            android:name=".data.sync.WearSyncListenerService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <!-- Listen for all task-related paths -->
+                <data android:scheme="wear" android:host="*" android:pathPrefix="/outbox/phone/" />
+                <data android:scheme="wear" android:host="*" android:pathPrefix="/ack/watch/" />
+                <data android:scheme="wear" android:host="*" android:pathPrefix="/tasks/" />
+                <data android:scheme="wear" android:host="*" android:path="/snapshot/tasks" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

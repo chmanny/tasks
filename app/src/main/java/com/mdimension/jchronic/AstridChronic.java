@@ -16,6 +16,7 @@ import com.mdimension.jchronic.tags.Separator;
 import com.mdimension.jchronic.tags.TimeZone;
 import com.mdimension.jchronic.utils.Span;
 import com.mdimension.jchronic.utils.Token;
+
 import java.util.LinkedList;
 import java.util.List;
 

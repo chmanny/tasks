@@ -38,8 +38,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         }
     }
 
-    @Inject lateinit var device: Device
-    @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject
+    lateinit var device: Device
+    @Inject
+    lateinit var dialogBuilder: DialogBuilder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,7 +119,7 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
     }
 
     protected fun findPreference(@StringRes prefId: Int): Preference =
-            findPreference(getString(prefId))!!
+        findPreference(getString(prefId))!!
 
     protected fun openUrl(prefId: Int, url: Int) =
         findPreference(prefId).setOnPreferenceClickListener {

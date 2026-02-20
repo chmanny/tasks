@@ -23,8 +23,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.todoroo.andlib.utility.AndroidUtilities;
+
 import org.tasks.R;
+
 import timber.log.Timber;
 
 public class NumberPicker extends LinearLayout

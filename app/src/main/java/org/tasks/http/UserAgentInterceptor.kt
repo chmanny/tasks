@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import org.tasks.BuildConfig
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 
 object UserAgentInterceptor : Interceptor {
     private val userAgent = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (okhttp3) Android/${Build.VERSION.RELEASE}"

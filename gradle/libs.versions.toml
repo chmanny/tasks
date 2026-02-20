@@ -1,7 +1,7 @@
 [versions]
-versionCode = "141306" # increment by 2
-versionName = "14.13"
-agp = "8.13.2"
+versionCode = "141202" # increment by 2
+versionName = "14.12"
+agp = "9.0.1"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "35"
@@ -11,7 +11,7 @@ appauth = "0.11.1"
 appcompat = "1.7.1"
 cert4android = "7814052"
 coil = "2.7.0"
-compose = "2026.02.00"
+compose = "2025.07.00"
 constraintlayout = "2.2.1"
 dagger-hilt = "2.57.2"
 dashclock-api = "2.0.0"
@@ -45,7 +45,7 @@ opentasks = "562fec5"
 osmdroid = "6.1.20"
 oss-licenses-plugin = "0.10.10"
 persistent-cookiejar = "1.0.1"
-play-services-maps = "20.0.0"
+play-services-maps = "19.2.0"
 play-services-location = "21.3.0"
 play-services-oss-licenses = "17.3.0"
 preference = "1.2.1"
@@ -143,6 +143,7 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.2" }
 kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.4.0" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
@@ -211,7 +212,7 @@ kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.3" }
+ksp = { id = "com.google.devtools.ksp", version = "2.3.2" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version = "0.9.6" }

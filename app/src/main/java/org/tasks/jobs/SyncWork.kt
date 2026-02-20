@@ -17,11 +17,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.TasksApplication
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
@@ -37,8 +37,8 @@ import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
-import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.sync.SyncSource
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
@@ -108,7 +108,12 @@ class SyncWork @AssistedInject constructor(
     private val syncStatus = R.string.p_sync_ongoing
 
     private suspend fun getSyncSource(): SyncSource =
-        SyncSource.fromString(tasksPreferences.get(TasksPreferences.syncSource, SyncSource.NONE.name))
+        SyncSource.fromString(
+            tasksPreferences.get(
+                TasksPreferences.syncSource,
+                SyncSource.NONE.name
+            )
+        )
 
     private suspend fun setSyncSource(source: SyncSource) =
         tasksPreferences.set(TasksPreferences.syncSource, source.name)
@@ -167,6 +172,7 @@ class SyncWork @AssistedInject constructor(
                     TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it)
                     TYPE_TASKS,
                     TYPE_CALDAV -> caldavSynchronizer.get().sync(it)
+
                     TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it)
                 }
             }
@@ -177,7 +183,7 @@ class SyncWork @AssistedInject constructor(
         caldavDao.getAccounts(CaldavAccount.TYPE_GOOGLE_TASKS)
 
     private suspend fun getCaldavAccounts() =
-            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
+        caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
 
     companion object {
         private val LOCK = Any()

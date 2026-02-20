@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.redacted) apply false
+    alias(libs.plugins.kotlin.compose.compiler) apply false
 }
 
 buildscript {

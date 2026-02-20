@@ -15,10 +15,13 @@ import android.view.View;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AlertDialog;
+
+import org.tasks.R;
+
 import java.util.LinkedList;
 import java.util.List;
-import org.tasks.R;
 
 /** Dialog box with an arbitrary number of number pickers */
 class NNumberPickerDialog extends AlertDialog implements OnClickListener {

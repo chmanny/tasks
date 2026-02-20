@@ -166,6 +166,16 @@ class WorkManagerImpl(
             val pendingIntent = notificationPendingIntent
             if (!atLeastS() || alarmManager.canScheduleExactAlarms()) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+            } else {
+                // Fallback: schedule via WorkManager when exact alarm permission is denied
+                val delay = time - currentTimeMillis()
+                enqueueUnique(
+                    TAG_NOTIFICATIONS,
+                    NotificationWork::class.java,
+                    time = time,
+                    expedited = false,
+                )
+                Timber.w("Exact alarm permission denied, falling back to WorkManager (delay=${delay}ms)")
             }
         }
     }

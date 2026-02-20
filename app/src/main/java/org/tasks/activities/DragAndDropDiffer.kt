@@ -58,7 +58,7 @@ interface DragAndDropDiffer<T, R : List<T>> : ListUpdateCallback {
             .scan(Pair(initial, null)) { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                 calculateDiff(last, next)
             }
-                .drop(1)
+            .drop(1)
             .flowOn(Dispatchers.Default)
             .onEach { applyDiff(it) }
             .launchIn(CoroutineScope(Dispatchers.Main + Job()))

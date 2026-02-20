@@ -2,8 +2,8 @@ package org.tasks.extensions
 
 import android.content.Intent
 
-const val FLAG_FROM_HISTORY
-        = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+const val FLAG_FROM_HISTORY =
+    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 
 val Intent.isFromHistory: Boolean
     get() = flags and FLAG_FROM_HISTORY == FLAG_FROM_HISTORY

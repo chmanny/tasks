@@ -18,6 +18,7 @@ class WearRefresherImpl(
     phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
     private val registry: WearDataLayerRegistry,
     private val scope: CoroutineScope,
+    private val phoneSyncManager: PhoneSyncManager? = null,
 ) : WearRefresher {
 
     private var watchConnected = false
@@ -32,6 +33,9 @@ class WearRefresherImpl(
                 lastUpdate.update()
             }
             .launchIn(scope)
+
+        // Start listening for sync events from watch
+        phoneSyncManager?.startListening()
     }
 
     private val lastUpdate: DataStore<LastUpdate> by lazy {
@@ -41,6 +45,22 @@ class WearRefresherImpl(
     override suspend fun refresh() {
         if (watchConnected) {
             lastUpdate.update()
+            // Push all tasks to watch for bidirectional sync
+            try {
+                phoneSyncManager?.sendTaskSnapshot()
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to push tasks to watch on refresh")
+            }
+        }
+    }
+
+    /**
+     * Notify watch about a specific task change.
+     * This is called after task updates to sync changes to watch.
+     */
+    suspend fun notifyTaskChanged(taskId: Long) {
+        if (watchConnected) {
+            phoneSyncManager?.notifyTaskChanged(taskId)
         }
     }
 }

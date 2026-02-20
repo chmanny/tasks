@@ -15,9 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_CALENDAR
 import org.tasks.compose.settings.Toaster
@@ -33,9 +33,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
+    @Inject
+    lateinit var caldavDao: CaldavDao
+    @Inject
+    lateinit var taskDeleter: TaskDeleter
+    @Inject
+    lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private val account: CaldavAccount
         get() = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)!!
@@ -63,8 +66,9 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         if (!isNewList) baseViewModel.setTitle(gtasksList.name!!)
 
         if (createListViewModel.inProgress
-                || renameListViewModel.inProgress
-                || deleteListViewModel.inProgress) {
+            || renameListViewModel.inProgress
+            || deleteListViewModel.inProgress
+        ) {
             showProgressIndicator()
         }
 
@@ -110,10 +114,12 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                 showProgressIndicator()
                 createListViewModel.createList(gtasksList.account!!, newName)
             }
+
             nameChanged() -> {
                 showProgressIndicator()
                 renameListViewModel.renameList(gtasksList, newName)
             }
+
             else -> {
                 if (colorChanged() || iconChanged()) {
                     gtasksList.color = baseViewModel.color
@@ -124,12 +130,12 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
                     )
                     refreshBroadcaster.broadcastRefresh()
                     setResult(
-                            Activity.RESULT_OK,
-                            Intent(TaskListFragment.ACTION_RELOAD)
-                                    .putExtra(
-                                        MainActivity.OPEN_FILTER,
-                                        CaldavFilter(calendar = gtasksList, account = account)
-                                    )
+                        Activity.RESULT_OK,
+                        Intent(TaskListFragment.ACTION_RELOAD)
+                            .putExtra(
+                                MainActivity.OPEN_FILTER,
+                                CaldavFilter(calendar = gtasksList, account = account)
+                            )
                     )
                 }
                 finish()
@@ -210,12 +216,12 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         caldavDao.insertOrReplace(result)
 
         setResult(
-                Activity.RESULT_OK,
-                Intent(TaskListFragment.ACTION_RELOAD)
-                    .putExtra(
-                        MainActivity.OPEN_FILTER,
-                        CaldavFilter(calendar = result, account = account)
-                    )
+            Activity.RESULT_OK,
+            Intent(TaskListFragment.ACTION_RELOAD)
+                .putExtra(
+                    MainActivity.OPEN_FILTER,
+                    CaldavFilter(calendar = result, account = account)
+                )
         )
         finish()
     }

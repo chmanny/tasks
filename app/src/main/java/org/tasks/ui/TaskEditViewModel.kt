@@ -37,6 +37,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import net.fortuna.ical4j.model.Recur
+import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
@@ -77,8 +79,6 @@ import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis

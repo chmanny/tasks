@@ -591,6 +591,7 @@
         android:value="org.tasks.dashclock.DashClockSettings"/>
     </service>
 
+
     <activity
       android:exported="true"
       android:name=".dashclock.DashClockSettings"/>

@@ -17,8 +17,8 @@ class AppWidgetManager @Inject constructor(
 
     val widgetIds: IntArray
         get() = appWidgetManager
-                ?.getAppWidgetIds(ComponentName(context, TasksWidget::class.java))
-                ?: intArrayOf()
+            ?.getAppWidgetIds(ComponentName(context, TasksWidget::class.java))
+            ?: intArrayOf()
 
     fun rebuildWidgets(vararg appWidgetIds: Int) {
         if (appWidgetIds.isEmpty()) {

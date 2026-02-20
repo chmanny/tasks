@@ -17,11 +17,11 @@ import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.json.JSONObject
 import org.tasks.R
-import timber.log.Timber
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
 import org.tasks.data.entity.CaldavCalendar
+import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 

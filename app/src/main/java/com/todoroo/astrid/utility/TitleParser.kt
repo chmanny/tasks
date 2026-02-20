@@ -9,9 +9,9 @@ import com.mdimension.jchronic.AstridChronic
 import com.mdimension.jchronic.Chronic
 import net.fortuna.ical4j.model.Recur.Frequency
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.createDueDate
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
-import org.tasks.data.createDueDate
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import timber.log.Timber
 import java.util.Calendar

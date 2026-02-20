@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.activities.TagSettingsActivity
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.listSettingsClass

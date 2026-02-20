@@ -99,12 +99,12 @@ class TaskDuplicator @Inject constructor(
         }
         for (g in locationDao.getGeofencesForTask(task.id)) {
             locationDao.insert(
-                    Geofence(
-                        task = clone.id,
-                        place = g.place,
-                        isArrival = g.isArrival,
-                        isDeparture = g.isDeparture,
-                    )
+                Geofence(
+                    task = clone.id,
+                    place = g.place,
+                    isArrival = g.isArrival,
+                    isDeparture = g.isDeparture,
+                )
             )
         }
         val alarms = alarmDao.getAlarms(task.id)

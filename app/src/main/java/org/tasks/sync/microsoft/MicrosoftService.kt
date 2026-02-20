@@ -60,7 +60,11 @@ class MicrosoftService(
     suspend fun deleteTask(listId: String, taskId: String) =
         client.delete("$baseUrl/lists/$listId/tasks/$taskId")
 
-    suspend fun createChecklistItem(listId: String, taskId: String, body: Tasks.Task.ChecklistItem): Tasks.Task.ChecklistItem =
+    suspend fun createChecklistItem(
+        listId: String,
+        taskId: String,
+        body: Tasks.Task.ChecklistItem
+    ): Tasks.Task.ChecklistItem =
         client
             .post("$baseUrl/lists/$listId/tasks/$taskId/checklistItems") {
                 contentType(ContentType.Application.Json)
@@ -68,7 +72,11 @@ class MicrosoftService(
             }
             .body()
 
-    suspend fun updateChecklistItem(listId: String, taskId: String, body: Tasks.Task.ChecklistItem): Tasks.Task.ChecklistItem =
+    suspend fun updateChecklistItem(
+        listId: String,
+        taskId: String,
+        body: Tasks.Task.ChecklistItem
+    ): Tasks.Task.ChecklistItem =
         client
             .patch("$baseUrl/lists/$listId/tasks/$taskId/checklistItems/${body.id}") {
                 contentType(ContentType.Application.Json)

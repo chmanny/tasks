@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateListViewModel @Inject constructor(
-        private val invoker: InvokerFactory
+    private val invoker: InvokerFactory
 ) : CompletableViewModel<TaskList>() {
     suspend fun createList(account: String, name: String) {
         run { invoker.getGtasksInvoker(account).createGtaskList(name)!! }

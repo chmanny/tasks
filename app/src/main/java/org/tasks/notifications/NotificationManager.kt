@@ -8,7 +8,6 @@ import android.content.Intent
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
-import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.coroutineScope
@@ -228,9 +227,7 @@ class NotificationManager @Inject constructor(
         if (!permissionChecker.canNotify()) {
             return
         }
-        if (preUpsideDownCake()) {
-            builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
-        }
+        builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
         val notification = builder.build()
         var ringTimes = if (fiveTimes) 5 else 1
         if (alert && nonstop) {

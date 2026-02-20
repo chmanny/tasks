@@ -13,13 +13,13 @@ class PlaceSearchGoogleTest {
         val results = toSearchResults(readFile("google_places/search.json").toJson())
 
         assertEquals(
-                listOf(
-                        "ChIJfQQVCCMzjoARce0POzONI8I",
-                        "ChIJQXqgXsiAj4ARqtl6U4GD-Cw",
-                        "ChIJCWNdVNgr3YAR4pLlOt8CfEk",
-                        "ChIJhTEH6lev3IARDMKC_pGF6nI"
-                ),
-                results.map { it.id }
+            listOf(
+                "ChIJfQQVCCMzjoARce0POzONI8I",
+                "ChIJQXqgXsiAj4ARqtl6U4GD-Cw",
+                "ChIJCWNdVNgr3YAR4pLlOt8CfEk",
+                "ChIJhTEH6lev3IARDMKC_pGF6nI"
+            ),
+            results.map { it.id }
         )
     }
 
@@ -42,8 +42,8 @@ class PlaceSearchGoogleTest {
         assertEquals(-81.581212, result.longitude, 0.0)
         assertEquals("+1 407-939-5277", result.phone)
         assertEquals(
-                "https://disneyworld.disney.go.com/destinations/magic-kingdom/?CMP=OKC-80007944_GM_WDW_destination_magickingdompark_NA",
-                result.url
+            "https://disneyworld.disney.go.com/destinations/magic-kingdom/?CMP=OKC-80007944_GM_WDW_destination_magickingdompark_NA",
+            result.url
         )
     }
 }

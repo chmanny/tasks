@@ -1,12 +1,12 @@
 package org.tasks.fcm
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.ApplicationScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton

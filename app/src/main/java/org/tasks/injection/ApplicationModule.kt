@@ -16,7 +16,6 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
@@ -44,6 +43,8 @@ import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import java.util.Locale
 import javax.inject.Singleton
+
+import org.tasks.broadcast.RefreshBroadcaster
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -144,6 +145,7 @@ class ApplicationModule {
     @Provides
     fun providesNotificationManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
 
     @Provides
     fun providesDrawerConfiguration(preferences: Preferences): DrawerConfiguration =

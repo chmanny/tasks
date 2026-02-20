@@ -7,8 +7,10 @@
 package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.client.util.DateTime;
+
 import java.util.Date;
 import java.util.TimeZone;
+
 import timber.log.Timber;
 
 public class GtasksApiUtilities {

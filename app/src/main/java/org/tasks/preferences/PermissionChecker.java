@@ -18,50 +18,50 @@ import timber.log.Timber;
 
 public class PermissionChecker {
 
-  private final Context context;
+    private final Context context;
 
-  @Inject
-  public PermissionChecker(@ApplicationContext Context context) {
-    this.context = context;
-  }
-
-  public boolean canAccessCalendars() {
-    return checkPermissions(permission.READ_CALENDAR, permission.WRITE_CALENDAR);
-  }
-
-  public boolean canAccessForegroundLocation() {
-    return checkPermissions(permission.ACCESS_FINE_LOCATION);
-  }
-
-  public boolean canAccessBackgroundLocation() {
-    return checkPermissions(backgroundPermissions().toArray(new String[0]));
-  }
-
-  public boolean hasNotificationPermission() {
-    return !atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
-  }
-
-  public boolean hasAlarmsAndRemindersPermission() {
-    return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context);
-  }
-
-  public boolean canNotify() {
-      return hasAlarmsAndRemindersPermission() && hasNotificationPermission();
-  }
-
-  private boolean checkPermissions(String... permissions) {
-    for (String permission : permissions) {
-      if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-        Timber.w("Request for %s denied", permission);
-        return false;
-      }
+    @Inject
+    public PermissionChecker(@ApplicationContext Context context) {
+        this.context = context;
     }
-    return true;
-  }
 
-  public static List<String> backgroundPermissions() {
-    return atLeastQ()
-            ? asList(permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION)
-            : Collections.singletonList(permission.ACCESS_FINE_LOCATION);
-  }
+    public static List<String> backgroundPermissions() {
+        return atLeastQ()
+                ? asList(permission.ACCESS_FINE_LOCATION, permission.ACCESS_BACKGROUND_LOCATION)
+                : Collections.singletonList(permission.ACCESS_FINE_LOCATION);
+    }
+
+    public boolean canAccessCalendars() {
+        return checkPermissions(permission.READ_CALENDAR, permission.WRITE_CALENDAR);
+    }
+
+    public boolean canAccessForegroundLocation() {
+        return checkPermissions(permission.ACCESS_FINE_LOCATION);
+    }
+
+    public boolean canAccessBackgroundLocation() {
+        return checkPermissions(backgroundPermissions().toArray(new String[0]));
+    }
+
+    public boolean hasNotificationPermission() {
+        return !atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
+    }
+
+    public boolean hasAlarmsAndRemindersPermission() {
+        return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context);
+    }
+
+    public boolean canNotify() {
+        return hasAlarmsAndRemindersPermission() && hasNotificationPermission();
+    }
+
+    private boolean checkPermissions(String... permissions) {
+        for (String permission : permissions) {
+            if (context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                Timber.w("Request for %s denied", permission);
+                return false;
+            }
+        }
+        return true;
+    }
 }

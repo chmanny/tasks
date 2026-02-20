@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -27,7 +28,9 @@ android {
             val tasksKeyPassword: String? by project
 
             keyAlias = tasksKeyAlias
-            storeFile = file(tasksStoreFile ?: "none")
+            // Handle empty, 'none', or non-existent storeFile
+            val storeFilePath = tasksStoreFile?.takeIf { it.isNotBlank() && it != "none" }
+            storeFile = storeFilePath?.let { file(it) }?.takeIf { it.exists() }
             storePassword = tasksStorePassword
             keyPassword = tasksKeyPassword
         }
@@ -45,7 +48,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            val releaseSigningConfig = signingConfigs.getByName("release")
+            signingConfig = if (releaseSigningConfig.storeFile != null) {
+                releaseSigningConfig
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
     compileOptions {
@@ -64,6 +72,11 @@ android {
     }
 
     tasks.register("testClasses")
+}
+
+// Room schema export directory configuration
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
@@ -94,6 +107,13 @@ dependencies {
     implementation(libs.horologist.datalayer.core)
     implementation(libs.horologist.datalayer.grpc)
     implementation(libs.timber)
+
+    // Room Database
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
+
+    // WorkManager for periodic sync
+    implementation(libs.androidx.work)
 
     implementation(libs.wear.tiles.proto) // https://nvd.nist.gov/vuln/detail/CVE-2024-7254
 

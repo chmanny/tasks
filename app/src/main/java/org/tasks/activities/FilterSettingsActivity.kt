@@ -28,9 +28,9 @@ import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
 import org.tasks.Strings
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.FilterCondition.FilterCondition
 import org.tasks.compose.FilterCondition.InputTextOption
@@ -54,9 +54,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilterSettingsActivity : BaseListSettingsActivity() {
-    @Inject lateinit var filterDao: FilterDao
-    @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
-    @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
+    @Inject
+    lateinit var filterDao: FilterDao
+    @Inject
+    lateinit var filterCriteriaProvider: FilterCriteriaProvider
+    @Inject
+    lateinit var refreshBroadcaster: RefreshBroadcaster
 
     private val viewModel: FilterSettingsViewModel by viewModels()
 
@@ -97,7 +100,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     override val toolbarTitle: String
-        get() = if (isNew) getString(R.string.FLA_new_filter) else viewModel.viewState.value.filter?.title ?: ""
+        get() = if (isNew) getString(R.string.FLA_new_filter) else viewModel.viewState.value.filter?.title
+            ?: ""
 
     override suspend fun save() {
         val newName = newName
@@ -131,9 +135,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             }
             refreshBroadcaster.broadcastRefresh()
             setResult(
-                    Activity.RESULT_OK,
-                    Intent(TaskListFragment.ACTION_RELOAD)
-                            .putExtra(MainActivity.OPEN_FILTER, CustomFilter(f)))
+                Activity.RESULT_OK,
+                Intent(TaskListFragment.ACTION_RELOAD)
+                    .putExtra(MainActivity.OPEN_FILTER, CustomFilter(f))
+            )
         }
         finish()
     }
@@ -159,7 +164,9 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_filter")
         viewModel.delete {
             setResult(
-                Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter))
+                Activity.RESULT_OK,
+                Intent(TaskListFragment.ACTION_DELETED).putExtra(TOKEN_FILTER, filter)
+            )
             finish()
         }
     }
@@ -167,8 +174,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun help() = openUri(R.string.url_filters)
 
     @Composable
-    private fun ActivityContent ()
-    {
+    private fun ActivityContent() {
         TasksTheme {
             val viewState by viewModel.viewState.collectAsStateWithLifecycle()
             BaseSettingsContent(
@@ -188,7 +194,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                                 modifier = modifier,
                             )
                         }
-                    } else DeleteButton(filter?.title ?: ""){ delete() }
+                    } else DeleteButton(filter?.title ?: "") { delete() }
                 },
                 fab = {
                     NewCriterionFAB(viewState.fabExtended) { newCriterion() }
@@ -206,7 +212,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             editCriterionType.value?.let { itemId ->
                 val index = viewState.criteria.indexOfFirst { it.id == itemId }
                 assert(index >= 0)
-                val criterionInstance = remember (index) {
+                val criterionInstance = remember(index) {
                     CriterionInstance(viewState.criteria[index])
                 }
                 if (criterionInstance.type != CriterionInstance.TYPE_UNIVERSE) {
@@ -240,7 +246,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             } /* end (AND|OR|NOT) dialog */
 
             /** dialog to select new criterion category **/
-            newCriterionTypes.value?.let  { list ->
+            newCriterionTypes.value?.let { list ->
                 SelectFromList(
                     names = list.map(CustomFilterCriterion::getName),
                     onCancel = { newCriterionTypes.value = null },
@@ -277,11 +283,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
 
                     is TextInputCriterion -> {
                         val textInCriterion = instance.criterion as TextInputCriterion
-                        InputTextOption (
+                        InputTextOption(
                             title = textInCriterion.name,
                             onCancel = { newCriterionOptions.value = null },
                             onDone = { text ->
-                                text.trim().takeIf{ it != "" }?. let { text ->
+                                text.trim().takeIf { it != "" }?.let { text ->
                                     instance.selectedText = text
                                     viewModel.addCriteria(instance)
                                 }
@@ -331,9 +337,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 for (instance in this) {
                     val value = instance.valueFromCriterion
                     if (instance.criterion.valuesForNewTasks != null
-                        && instance.type == CriterionInstance.TYPE_INTERSECT) {
+                        && instance.type == CriterionInstance.TYPE_INTERSECT
+                    ) {
                         for ((key, value1) in instance.criterion.valuesForNewTasks) {
-                            values[key.replace("?", value!!)] = value1.toString().replace("?", value)
+                            values[key.replace("?", value!!)] =
+                                value1.toString().replace("?", value)
                         }
                     }
                 }

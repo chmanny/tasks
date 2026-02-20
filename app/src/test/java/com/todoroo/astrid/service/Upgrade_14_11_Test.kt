@@ -3,7 +3,6 @@ package com.todoroo.astrid.service
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE

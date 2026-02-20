@@ -25,7 +25,7 @@ import org.tasks.time.ONE_MINUTE
 import org.tasks.time.ONE_WEEK
 import timber.log.Timber
 import java.text.ParseException
-import java.util.*
+import java.util.Collections
 import javax.inject.Inject
 
 class RepeatTaskHelper @Inject constructor(

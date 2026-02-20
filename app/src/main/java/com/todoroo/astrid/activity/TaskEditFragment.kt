@@ -22,8 +22,6 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.edit.TaskEditScreen
-import org.tasks.repeats.BasicRecurrenceDialog
-import org.tasks.repeats.RepeatRuleToString
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
@@ -33,6 +31,8 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.BasicRecurrenceDialog
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.ui.ChipProvider

@@ -154,11 +154,13 @@ fun Alarms(
                     } else {
                         MaterialTheme.colorScheme.error
                     }
+
                     Alarm.TYPE_REL_END -> if (hasDueDate) {
                         MaterialTheme.colorScheme.onSurface
                     } else {
                         MaterialTheme.colorScheme.error
                     }
+
                     else -> MaterialTheme.colorScheme.onSurface
                 },
                 onClick = { replaceAlarm(alarm) },

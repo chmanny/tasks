@@ -37,7 +37,6 @@ import com.google.auth.oauth2.GoogleCredentials
 import org.tasks.gtasks.GoogleAccountManager
 import java.io.IOException
 import java.net.URI
-import java.util.*
 import javax.inject.Inject
 
 class HttpCredentialsAdapter @Inject constructor(

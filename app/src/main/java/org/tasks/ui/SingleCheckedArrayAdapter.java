@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import java.util.List;
+
 import org.tasks.R;
+
+import java.util.List;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
