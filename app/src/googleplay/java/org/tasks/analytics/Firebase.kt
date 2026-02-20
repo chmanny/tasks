@@ -61,4 +61,8 @@ class Firebase @Inject constructor(
 
     @Suppress("RedundantSuspendModifier")
     suspend fun getToken(): String? = null
+
+    fun registerPrefChangeListener() {}
+
+    fun unregisterPrefChangeListener() {}
 }
